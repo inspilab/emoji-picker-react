@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SkinTones from '../SkinTones';
-import { categories, modifiers, skinTones } from '../emoji-data';
+import { emojis, categories, modifiers, skinTones } from '../emoji-data';
 import CategoriesNav from '../CategoriesNav';
 import WrapperSection from '../WrapperSection';
 import SearchBar from '../SearchBar';
@@ -39,6 +39,11 @@ class EmojiPicker extends Component {
         this.closeDiversitiesMenu = this.closeDiversitiesMenu.bind(this);
         this.setActiveCategory = this.setActiveCategory.bind(this);
         this.setSeenInSearch = this.setSeenInSearch.bind(this);
+
+        this.emojis = props.emoji_data.emojis;
+        this.categories = props.emoji_data.categories;
+        this.modifiers = props.emoji_data.modifiers;
+        this.skinTones = props.emoji_data.skinTones;
     }
 
     getChildContext() {
@@ -59,7 +64,7 @@ class EmojiPicker extends Component {
 
     setActiveCategory({index}) {
 
-        if (!categories[index]) { return; }
+        if (!this.categories[index]) { return; }
 
         if (this.state.filter) { return; }
 
@@ -74,7 +79,7 @@ class EmojiPicker extends Component {
             index = 0;
         }
 
-        this.setPickerClassname(CLASSNAME_CATEGORY_INDEX, categories[index].name);
+        this.setPickerClassname(CLASSNAME_CATEGORY_INDEX, this.categories[index].name);
         this.setState({ activeCategory: index });
     }
 
@@ -184,10 +189,10 @@ class EmojiPicker extends Component {
 
         e.preventDefault();
 
-        const usedModifiers = modifiers.filter((modifier) => unified.indexOf(modifier) > -1);
+        const usedModifiers = this.modifiers.filter((modifier) => unified.indexOf(modifier) > -1);
 
         if (usedModifiers.length) {
-            const name = `${emoji.name}::${skinTones[usedModifiers[0]]}`;
+            const name = `${emoji.name}::${this.skinTones[usedModifiers[0]]}`;
             return this.props.onEmojiClick(unified, Object.assign({}, emoji, {
                 name: name || emoji.name
             }), e);
@@ -195,7 +200,7 @@ class EmojiPicker extends Component {
             const modifier = emoji.diversities.filter((diversity) => diversity.indexOf(this.state.activeModifier) > -1);
 
             if (modifier.length) {
-                const name = `${emoji.name}::${skinTones[this.state.activeModifier]}`;
+                const name = `${emoji.name}::${this.skinTones[this.state.activeModifier]}`;
                 return this.props.onEmojiClick(modifier[0], Object.assign({}, emoji, {
                     name: name || emoji.name
                 }), e);
@@ -216,7 +221,8 @@ class EmojiPicker extends Component {
                 <div className="bar-wrapper">
                     <SkinTones onModifierClick={this.onModifierClick}
                         activeModifier={this.state.activeModifier}
-                        spread={this.state.modifiersSpread}/>
+                        spread={this.state.modifiersSpread}
+                        modifiers={this.modifiers}/>
                     <SearchBar onChange={this.onSearch}/>
                 </div>
                 <WrapperSection filter={this.state.filter}
@@ -231,11 +237,20 @@ class EmojiPicker extends Component {
                     setSeenInSearch={this.setSeenInSearch}
                     activeCategory={this.state.activeCategory}
                     delayedCategory={this.state.delayedCategory}
-                    preload={preload}/>
+                    preload={preload} emojis={this.emojis} categories={this.categories}/>
             </aside>
         );
     }
 }
+
+EmojiPicker.defaultProps = {
+    emoji_data: {
+        categories,
+        modifiers,
+        skinTones,
+        emojis
+    }
+};
 
 EmojiPicker.propTypes = {
     onEmojiClick: PropTypes.func.isRequired,
@@ -243,7 +258,8 @@ EmojiPicker.propTypes = {
     emojiResolution: PropTypes.number,
     preload: PropTypes.bool,
     customCategoryNames: PropTypes.object,
-    disableDiversityPicker: PropTypes.bool
+    disableDiversityPicker: PropTypes.bool,
+    emoji_data: PropTypes.object
 };
 
 EmojiPicker.childContextTypes = {

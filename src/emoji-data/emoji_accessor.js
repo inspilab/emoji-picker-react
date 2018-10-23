@@ -6,11 +6,13 @@ export default function(emoji) {
         return;
     }
 
+    const { u, n, o, c, ...rest } = emoji;
     const emojiObject = {
-        name: emoji.n,
-        unified: emoji.u,
-        order: emoji.o,
-        category: categories[emoji.c].name
+        name: n,
+        unified: u,
+        order: o,
+        category: categories[c].name,
+        ...rest
     };
 
     if (emoji.d) {

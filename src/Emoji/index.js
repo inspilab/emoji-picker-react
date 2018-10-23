@@ -101,13 +101,14 @@ class Emoji extends Component {
         const { emoji, hidden, categorySeen } = this.props;
         const { activeModifier, assetPath, emojiResolution } = this.context;
         let unified = emoji.unified;
+        const src = emoji.src;
         const shownClass = (categorySeen && !hidden) ? ' shown' : '';
 
         unified = unifiedWithModifier(emoji, activeModifier);
 
         const className = `emoji${this.hasDiversities ? ' has-diversities' : ''}${shownClass}`;
 
-        const style = bgImage({ unified, assetPath, emojiResolution });
+        const style = bgImage({ src, unified, assetPath, emojiResolution });
         style.order = emoji.order;
 
         return (

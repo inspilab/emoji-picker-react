@@ -3,7 +3,7 @@ import Skintones from './';
 import { shallow } from 'enzyme';
 import { modifiers } from '../emoji-data';
 
-const wrapper = shallow(<Skintones spread={true}/>);
+const wrapper = shallow(<Skintones spread={true} modifiers={modifiers} />);
 
 describe('Test Skintones', () => {
     it('Shoud have modifiter spread class', () => {

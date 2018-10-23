@@ -130,7 +130,9 @@ class WrapperSection extends Component {
             closeDiversitiesMenu,
             visibleCategories,
             modifiersSpread,
-            preload
+            preload,
+            emojis,
+            categories
         } = this.props;
 
         const {
@@ -149,7 +151,8 @@ class WrapperSection extends Component {
                     emojiResolution={emojiResolution}
                     onEmojiClick={onEmojiClick}
                     close={closeDiversitiesMenu}
-                    disable={disableDiversityPicker}/>
+                    disable={disableDiversityPicker}
+                    emojis={this.props.emojis}/>
                 <div className="scroller" ref={(scroller) => this._scroller = scroller}><div/></div>
                 <span className="emoji-name" ref={(emojiName) => this._emojiName = emojiName}></span>
                 <EmojiList filter={filter}
@@ -158,6 +161,7 @@ class WrapperSection extends Component {
                     modifiersSpread={modifiersSpread}
                     preload={preload}
                     _emojiName={this._emojiName}
+                    emojis={emojis} categories={categories}
                     ref={(list) => this._list = (list ? list._list : null)}/>
             </section>
         );
@@ -178,7 +182,9 @@ WrapperSection.propTypes = {
     modifiersSpread: PropTypes.bool,
     activeCategory: PropTypes.number,
     delayedCategory: PropTypes.number,
-    preload: PropTypes.bool
+    preload: PropTypes.bool,
+    emojis: PropTypes.object,
+    categories: PropTypes.array
 };
 
 WrapperSection.contextTypes = {

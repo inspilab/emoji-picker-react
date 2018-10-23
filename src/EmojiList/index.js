@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { categories } from '../emoji-data';
+import { categories, emojis } from '../emoji-data';
 import EmojiCategory from '../EmojiCategory';
 import './style.scss';
 
@@ -27,7 +27,7 @@ class EmojiList extends Component {
     }
 
     render() {
-        const { filter, onScroll, seenCategories, preload, customCategoryNames, _emojiName } = this.props;
+        const { filter, onScroll, seenCategories, preload, customCategoryNames, _emojiName, categories, emojis } = this.props;
         const filterClass = filter ? ' filter' : '';
         return (
             <div className={`emoji-list${filterClass}`}
@@ -43,7 +43,7 @@ class EmojiList extends Component {
                             filter={filter}
                             customCategoryNames={customCategoryNames}
                             _emojiName={_emojiName}
-                            categorySeen={isCategorySeen}/>
+                            categorySeen={isCategorySeen} emojis={emojis}/>
                     );
                 })}
             </div>
@@ -51,13 +51,20 @@ class EmojiList extends Component {
     }
 }
 
+EmojiList.defaultProps = {
+    categories,
+    emojis
+};
+
 EmojiList.propTypes = {
     filter: PropTypes.object,
     onScroll: PropTypes.func.isRequired,
     seenCategories: PropTypes.object.isRequired,
     preload: PropTypes.bool,
     _emojiName: PropTypes.object,
-    customCategoryNames: PropTypes.object
+    customCategoryNames: PropTypes.object,
+    categories: PropTypes.array,
+    emojis: PropTypes.object
 };
 
 EmojiList.contextTypes = {

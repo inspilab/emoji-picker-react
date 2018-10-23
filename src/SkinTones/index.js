@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { modifiers } from '../emoji-data';
 import './style.scss';
 
 const NEUT = 'neutral';
 
-function SkinTones({onModifierClick, activeModifier, spread }) {
+function SkinTones({onModifierClick, activeModifier, spread, modifiers }) {
 
     const spreadClass = spread ? ' spread' : '';
 
@@ -41,7 +40,8 @@ function SkinTones({onModifierClick, activeModifier, spread }) {
 SkinTones.propTypes = {
     onModifierClick: PropTypes.func.isRequired,
     activeModifier: PropTypes.string,
-    spread: PropTypes.bool
+    spread: PropTypes.bool,
+    modifiers: PropTypes.array
 };
 
 export default SkinTones;
