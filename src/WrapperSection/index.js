@@ -152,7 +152,8 @@ class WrapperSection extends Component {
                     onEmojiClick={onEmojiClick}
                     close={closeDiversitiesMenu}
                     disable={disableDiversityPicker}
-                    emojis={this.props.emojis}/>
+                    emojis={this.props.emojis}
+                    categories={this.props.categories}/>
                 <div className="scroller" ref={(scroller) => this._scroller = scroller}><div/></div>
                 <span className="emoji-name" ref={(emojiName) => this._emojiName = emojiName}></span>
                 <EmojiList filter={filter}

@@ -1,6 +1,6 @@
 import { categories } from './';
 
-export default function(emoji) {
+export default function(emoji, categories=categories) {
 
     if (!emoji) {
         return;

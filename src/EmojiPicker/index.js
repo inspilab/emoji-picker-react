@@ -126,7 +126,6 @@ class EmojiPicker extends Component {
     }
 
     onSearch(filter) {
-
         this.setState({ filter }, () => {
             this._wrapperSection.scrollTop();
             if (!filter) { return this.setActiveCategory(0); }
@@ -213,7 +212,6 @@ class EmojiPicker extends Component {
     render() {
         const { preload } = this.props;
         const visibleCategories = Object.assign({}, this.state.seenCategories, this.state.seenInSearch);
-
         return (
             <aside className={this.pickerClassNames.join(' ')}
                 ref={(picker) => this._picker = picker}>
@@ -223,7 +221,10 @@ class EmojiPicker extends Component {
                         activeModifier={this.state.activeModifier}
                         spread={this.state.modifiersSpread}
                         modifiers={this.modifiers}/>
-                    <SearchBar onChange={this.onSearch} emojis={this.emojis} keywords={this.keywords} />
+                    <SearchBar onChange={this.onSearch}
+                        emojis={this.emojis}
+                        keywords={this.keywords}
+                        categories={this.categories}/>
                 </div>
                 <WrapperSection filter={this.state.filter}
                     diversityPicker={this.state.diversityPicker}
@@ -237,7 +238,9 @@ class EmojiPicker extends Component {
                     setSeenInSearch={this.setSeenInSearch}
                     activeCategory={this.state.activeCategory}
                     delayedCategory={this.state.delayedCategory}
-                    preload={preload} emojis={this.emojis} categories={this.categories}/>
+                    preload={preload}
+                    emojis={this.emojis}
+                    categories={this.categories}/>
             </aside>
         );
     }

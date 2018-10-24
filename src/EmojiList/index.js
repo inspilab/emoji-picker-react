@@ -43,7 +43,7 @@ class EmojiList extends Component {
                             filter={filter}
                             customCategoryNames={customCategoryNames}
                             _emojiName={_emojiName}
-                            categorySeen={isCategorySeen} emojis={emojis}/>
+                            categorySeen={isCategorySeen} emojis={emojis} categories={categories}/>
                     );
                 })}
             </div>

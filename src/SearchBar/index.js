@@ -72,7 +72,8 @@ class SearchBar extends Component {
             }
         }
 
-        matches = findMatches(text);
+        const { emojis, keywords, categories } = this.props;
+        matches = findMatches(text, keywords);
 
         this.filterStack = [];
 
@@ -80,8 +81,7 @@ class SearchBar extends Component {
             return this.onChange({});
         }
 
-        const { emojis, keywords } = this.props;
-        matches = reduceEmojis(matches, emojis, keywords);
+        matches = reduceEmojis(matches, emojis, keywords, categories);
 
         this.filterStack.push({ text, matches });
         this.onChange(matches);
@@ -101,7 +101,8 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
     onChange: PropTypes.func.isRequired,
     emojis: PropTypes.object,
-    keywords: PropTypes.array
+    keywords: PropTypes.object,
+    categories: PropTypes.array
 };
 
 export default SearchBar;
