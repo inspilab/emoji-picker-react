@@ -80,14 +80,14 @@ class SearchBar extends Component {
             return this.onChange({});
         }
 
-        matches = reduceEmojis(matches);
+        const { emojis, keywords } = this.props;
+        matches = reduceEmojis(matches, emojis, keywords);
 
         this.filterStack.push({ text, matches });
         this.onChange(matches);
     }
 
     render() {
-
         return (
             <div className="search-bar">
                 <input type="text" placeholder="Emoji Search" onChange={this.filterKeywords} ref={(_input) => this._input = _input}/>
@@ -99,7 +99,9 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    emojis: PropTypes.object,
+    keywords: PropTypes.array
 };
 
 export default SearchBar;

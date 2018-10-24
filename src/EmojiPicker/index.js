@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SkinTones from '../SkinTones';
-import { emojis, categories, modifiers, skinTones } from '../emoji-data';
+import { emojis, categories, keywords, modifiers, skinTones } from '../emoji-data';
 import CategoriesNav from '../CategoriesNav';
 import WrapperSection from '../WrapperSection';
 import SearchBar from '../SearchBar';
@@ -42,6 +42,7 @@ class EmojiPicker extends Component {
 
         this.emojis = props.emoji_data.emojis;
         this.categories = props.emoji_data.categories;
+        this.keywords = props.emoji_data.keywords;
         this.modifiers = props.emoji_data.modifiers;
         this.skinTones = props.emoji_data.skinTones;
     }
@@ -86,9 +87,8 @@ class EmojiPicker extends Component {
     unsetActiveCategory() {
         this.setPickerClassname(CLASSNAME_CATEGORY_INDEX);
     }
+
     setSeenCategory(index, categories) {
-
-
         const seenCategories = Object.assign({}, this.state.seenCategories, categories);
         seenCategories[index] = true;
 
@@ -217,13 +217,13 @@ class EmojiPicker extends Component {
         return (
             <aside className={this.pickerClassNames.join(' ')}
                 ref={(picker) => this._picker = picker}>
-                <CategoriesNav onClick={this.onCategoryClick}/>
+                <CategoriesNav onClick={this.onCategoryClick} categories={this.categories}/>
                 <div className="bar-wrapper">
                     <SkinTones onModifierClick={this.onModifierClick}
                         activeModifier={this.state.activeModifier}
                         spread={this.state.modifiersSpread}
                         modifiers={this.modifiers}/>
-                    <SearchBar onChange={this.onSearch}/>
+                    <SearchBar onChange={this.onSearch} emojis={this.emojis} keywords={this.keywords} />
                 </div>
                 <WrapperSection filter={this.state.filter}
                     diversityPicker={this.state.diversityPicker}
@@ -248,7 +248,8 @@ EmojiPicker.defaultProps = {
         categories,
         modifiers,
         skinTones,
-        emojis
+        emojis,
+        keywords
     }
 };
 

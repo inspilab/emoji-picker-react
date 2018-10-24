@@ -1,7 +1,7 @@
 import { emojis, keywords } from '../../../emoji-data';
 import emojiAccessor from '../../../emoji-data/emoji_accessor';
 
-export default function reduceEmojis(matches) {
+export default function reduceEmojis(matches, emojis=emojis, keywords=keywords) {
     return matches.reduce((accumulator, keyword) => {
         keywords[keyword].forEach((emoji) => {
             const current = emojiAccessor(emojis[emoji]);
