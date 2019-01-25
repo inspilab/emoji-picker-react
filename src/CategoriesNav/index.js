@@ -9,8 +9,9 @@ function CategoriesNav({onClick, categories}) {
         <nav>{
             categories.map((category, index) => (
                 <a className={category.name} key={index} onClick={(e) => onClick(e, index)}>
-                    <i/>
-                    <span className="hidden">{category.name}</span>
+                    {category.icon ?
+                        <img src={category.icon}/> : <span>#{category.name}</span>
+                    }
                 </a>
             ))
         }
